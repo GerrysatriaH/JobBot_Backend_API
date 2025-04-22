@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+python-multipart
+easyocr
+PyMuPDF
+langdetect
+pillow
+keybert
+sentence-transformers
+tensorflow
+scikit-learn
+requests

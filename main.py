@@ -19,8 +19,8 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 # Load models and tokenizer
-tokenizer_path = r"c:\Users\LimDaenery93\Documents\Dokumen Skripsi PNJ\Model\CV_Reader_Model\tokenizer.pkl"
-model_path = r"c:\Users\LimDaenery93\Documents\Dokumen Skripsi PNJ\Model\CV_Reader_Model\cv_classification_model(97.50).h5"
+tokenizer_path = "tokenizer.pkl"
+model_path = "cv_classification_model.h5"
 
 model = load_model(model_path)
 with open(tokenizer_path, "rb") as f:
@@ -88,42 +88,6 @@ def run_llm(keywords):
         }
     )
     return response.json()["response"]
-
-# with deploy LLM
-# def run_deploy_llm(keywords):
-#     GROQ_API_KEY = "{API_KEY}"
-#     headers = {
-#         "Authorization": f"Bearer {GROQ_API_KEY}",
-#         "Content-Type": "application/json"
-#     }
-
-#     prompt = f"""
-#         Berdasarkan keahlian berikut: {', '.join(keywords)}, berikan rekomendasi pekerjaan yang cocok. 
-#         Tampilkan hasil dalam format:
-#         - Nama Pekerjaan:
-#         - Deskripsi Singkat:
-#         - Alasan Cocok:
-#     """
-
-#     payload = {
-#         "messages": [
-#             {"role": "system", "content": "Kamu adalah asisten karir yang membantu memberikan saran pekerjaan berdasarkan keahlian."},
-#             {"role": "user", "content": prompt}
-#         ],
-#         "model": "llama3-8b-8192", 
-#         "temperature": 0.7
-#     }
-
-#     response = requests.post(
-#         "https://api.groq.com/openai/v1/chat/completions",
-#         headers=headers,
-#         json=payload
-#     )
-
-#     if response.status_code == 200:
-#         return response.json()['choices'][0]['message']['content']
-#     else:
-#         return f"Gagal mendapatkan respons dari model: {response.text}"
 
 def run_openrouter_llm(keywords):
     OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
@@ -204,45 +168,3 @@ async def get_job_recommendation(file: UploadFile = File(...)):
         "keywords_document": keywords,
         "recommendation_text": recommendation
     }
-
-# CV Prediction Function
-# def predict_cv(text, tokenizer, model, max_len=200):
-#     text = text.lower()
-#     sequence = tokenizer.texts_to_sequences([text])
-#     padded_sequence = pad_sequences(sequence, maxlen=max_len, padding="post")
-#     prediction = model.predict(padded_sequence)[0][0]
-#     if prediction > 0.5:
-#         # print(f"Dokumen PDF merupakan CV dengan probabilitas {prediction:.4f}")
-#         return True
-#     else:
-#         # print(f"Dokumen PDF merupakan Non-CV dengan probabilitas {prediction:.4f}")
-#         print(f"Dokumen PDF merupakan Non-CV")
-#         return False
-
-# ------------------------------------------- TEST -------------------------------------------
-
-# pdf_path2 = r"C:\Users\LimDaenery93\Documents\Dokumen Skripsi PNJ\Model\Test Data\CV_Gerry.pdf"
-# doc = fitz.open(pdf_path2)
-# num_pages = len(doc)
-
-# result = False
-
-# if num_pages > 2:
-#     print(f"Dokumen PDF memiliki {num_pages} halaman. Tidak diproses.")
-#     result = False
-# else:
-#     text = "\n".join([page.get_text("text") for page in doc]).strip()
-#     if not text:
-#         print(f"Tidak ada teks yang dapat diekstrak dari PDF.")
-#     text_cleaned = clean_text(text)
-#     result = predict_document(text_cleaned)
-
-# if result:
-#     keywords = extract_text_from_pdf_file(pdf_path2)
-#     print("Keyword:", keywords)
-
-#     recommendation = run_llm(keywords)
-#     print("\n📄 Rekomendasi Pekerjaan:\n")
-#     print(recommendation)
-# else:
-#     print("Dokumen ini bukan merupakan dokumen CV.")

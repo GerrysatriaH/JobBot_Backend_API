@@ -8,6 +8,6 @@ langdetect
 pillow
 keybert
 sentence-transformers
-tensorflow
+tensorflow-cpu==2.11.0
 scikit-learn
 requests

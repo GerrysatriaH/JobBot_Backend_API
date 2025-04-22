@@ -1,0 +1,6 @@
+name: jobbot-backend-ap
+build:
+  builder: heroku/buildpacks:20
+  buildCommand: pip install -r requirements.txt
+run:
+  cmd: python app.py

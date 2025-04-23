@@ -8,5 +8,5 @@ build:
   buildpack: heroku/python
 
 run:
-  command: gunicorn app:app
+  command: gunicorn main:app
   containerPort: 8000

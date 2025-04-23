@@ -1,0 +1,12 @@
+name: jobbot-backend-ap
+routes:
+  - path: /
+    type: http
+
+build:
+  type: buildpack
+  buildpack: heroku/python
+
+run:
+  command: gunicorn app:app
+  containerPort: 8000

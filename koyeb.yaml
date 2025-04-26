@@ -1,8 +1,0 @@
-name: jobbot-backend-app
-
-routes:
-  - path: /
-    type: http
-
-build:
-  type: docker

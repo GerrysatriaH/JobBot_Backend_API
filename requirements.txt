@@ -1,8 +1,12 @@
-fastapi
-uvicorn
-keybert
-sentence-transformers
-transformers
-torch
-langdetect
-requests
+fastapi==0.110.0
+uvicorn[standard]==0.29.0
+
+keybert==0.8.0
+sentence-transformers==2.2.2
+transformers==4.37.2
+
+torch==2.0.1+cpu
+langdetect==1.0.9
+requests==2.31.0
+
+-f https://download.pytorch.org/whl/torch_stable.html
